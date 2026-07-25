@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boleto Gerado | Valino's Tech Games</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #0d0d0d; color: #ffffff; font-family: 'Roboto', sans-serif; text-align: center; }
+        .navbar-brand, h2, .neon-text { font-family: 'Orbitron', sans-serif; color: #00ff88; }
+        .sucesso-box { background-color: #1a1a1a; border: 1px solid #333; border-radius: 8px; max-width: 600px; margin: 60px auto; padding: 40px; }
+        .barcode-box { background-color: #262626; border: 1px solid #00ff88; font-family: monospace; letter-spacing: 1px; color: #fff; }
+        .btn-game { background-color: #00ff88; color: #000; font-weight: bold; font-family: 'Orbitron', sans-serif; border: none; }
+        .btn-game:hover { background-color: #00cc6e; color: #000; box-shadow: 0 0 15px rgba(0, 255, 136, 0.4); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sucesso-box shadow">
+            <div class="mb-4 text-warning" style="font-size: 60px;">
+                <i class="fa-solid fa-barcode"></i>
+            </div>
+            <h2 class="mb-3">BOLETO EMITIDO!</h2>
+            <p class="text-secondary small">Seu boleto registrado pelo Banco do Brasil foi gerado. Ele pode levar até 2 dias úteis para compensar após o pagamento.</p>
+            
+            <div class="card barcode-box p-3 rounded my-4 text-center">
+                00190.00009 02745.543217 00000.150004 1 98760000032000
+            </div>
+
+            <div class="row g-2 mb-4">
+                <div class="col-6">
+                    <button class="btn btn-outline-light w-100 py-2 btn-sm" onclick="alert('Fazendo download do PDF do Boleto...');"><i class="fa-solid fa-file-pdf"></i> Baixar PDF</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-outline-light w-100 py-2 btn-sm" onclick="window.print();"><i class="fa-solid fa-print"></i> Imprimir</button>
+                </div>
+            </div>
+
+            <a href="/" class="btn btn-game w-100 py-3">VOLTAR À VITRINE PRINCIPAL</a>
+        </div>
+    </div>
+</body>
+</html>

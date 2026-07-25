@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra Aprovada | Valino's Tech Games</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .navbar-brand, h2, .order-number, .btn-home {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .navbar-brand {
+            color: #00ff88 !important;
+        }
+        .success-card {
+            background-color: #1a1a1a;
+            border: 1px solid #00ff88;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.15);
+            max-width: 600px;
+            width: 100%;
+        }
+        .icon-circle {
+            width: 90px;
+            height: 90px;
+            background-color: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: #00ff88;
+            margin: 0 auto;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+            animation: pulse 2s infinite alternate;
+        }
+        .order-number {
+            color: #00ff88;
+            font-weight: bold;
+            background-color: #262626;
+            padding: 8px 16px;
+            border-radius: 6px;
+            display: inline-block;
+            border: 1px solid #333;
+        }
+        .btn-home {
+            background-color: #00ff88;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-home:hover {
+            background-color: #00cc6e;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            color: #000;
+        }
+        .step-line {
+            border-left: 2px dashed #333;
+            margin-left: 24px;
+            padding-left: 20px;
+        }
+        .step-item i {
+            color: #00ff88;
+            width: 25px;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(0, 255, 136, 0.2); }
+            100% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 255, 136, 0.5); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark border-bottom border-secondary py-3">
+        <div class="container justify-content-center">
+            <a class="navbar-brand fs-4" href="/">VALINO'S TECH @GAMES</a>
+        </div>
+    </nav>
+
+    <div class="container d-flex align-items-center justify-content-center flex-grow-1 my-5">
+        <div class="success-card p-5 text-center shadow">
+            
+            <div class="icon-circle mb-4">
+                <i class="fa-solid fa-square-check"></i>
+            </div>
+
+            <h2 class="mb-3 text-white">SETUP ADQUIRIDO!</h2>
+            <p class="text-secondary mb-4">Parabéns! Seu pagamento foi processado com sucesso pela nossa integradora e o seu pedido já entrou na nossa esteira de montagem técnica.</p>
+            
+            <div class="mb-4">
+                <span class="text-secondary d-block small mb-2">CÓDIGO DO PEDIDO</span>
+                <span class="order-number" th:text="${pedidoId}">VLT-12345678</span>
+            </div>
+
+            <hr class="border-secondary my-4">
+
+            <div class="text-start mx-auto" style="max-width: 400px;">
+                <h5 class="text-white small fw-bold mb-3" style="font-family: 'Orbitron'; letter-spacing: 1px;">PRÓXIMOS PASSOS:</h5>
+                
+                <div class="step-item mb-3">
+                    <p class="text-white mb-1"><i class="fa-solid fa-envelope"></i> <strong>Confirmação por E-mail</strong></p>
+                    <div class="step-line">
+                        <small class="text-secondary d-block pb-2">Enviamos o espelho da nota fiscal e o sumário dos componentes para o seu e-mail cadastrado.</small>
+                    </div>
+                </div>
+
+                <div class="step-item mb-2">
+                    <p class="text-white mb-1"><i class="fa-solid fa-truck-fast"></i> <strong>Despacho Logístico</strong></p>
+                    <div class="step-line" style="border-left-color: transparent;">
+                        <small class="text-secondary d-block">Assim que a transportadora coletar as peças na nossa central, o código de rastreamento ficará ativo no seu painel.</small>
+                    </div>
+                </div>
+            </div>
+
+            <a href="/" class="btn btn-home w-100 py-3 mt-4">
+                <i class="fa-solid fa-house-laptop"></i> VOLTAR PARA A HOME DA LOJA
+            </a>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 border-top border-secondary text-secondary" style="background-color: #090909;">
+        <p class="mb-0">&copy; 2026 Valino's Tech Games - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bundle.min.js"></script>
+</body>
+</html>

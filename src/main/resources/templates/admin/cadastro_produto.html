@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Produto - Valino's Tech</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+    
+    <h2 class="mb-4">Cadastro de Produto - Valinos Tech Games</h2>
+    
+    <form th:action="@{/admin/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3">
+            <label class="form-label">Nome do Produto:</label>
+            <input type="text" th:field="*{nome}" class="form-control" placeholder="Ex: Teclado Mecânico" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Preço (R$):</label>
+            <input type="number" step="0.01" th:field="*{preco}" class="form-control" placeholder="0.00" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Quantidade em Estoque:</label>
+            <input type="number" th:field="*{quantidade}" class="form-control" placeholder="0" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descrição:</label>
+            <textarea th:field="*{descricao}" class="form-control" rows="3" placeholder="Detalhes do produto..."></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Imagem do Produto:</label>
+            <input type="file" name="fileImagem" class="form-control" accept="image/*">
+            <small class="text-muted">Selecione uma imagem para o produto.</small>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success">Salvar Produto</button>
+            <a th:href="@{/admin/produtos}" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+    </form>
+</body>
+</html>

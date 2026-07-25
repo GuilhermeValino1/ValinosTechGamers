@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro Admin - Valino's Tech</title>
+    <!-- Bootstrap para o estilo profissional -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Ajuste para o botão do olho não quebrar o layout circular do Bootstrap */
+        .input-group .btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        body {
+            background-color: #f8f9fa; /* Um fundo leve para destacar o card */
+        }
+        .card {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra para um visual mais moderno */
+        }
+    </style>
+</head>
+<body class="container mt-5">
+    <div class="card mx-auto" style="max-width: 400px;">
+        <div class="card-body">
+            <h3 class="card-title text-center mb-4">Novo Administrador</h3>
+            
+            <!-- Formulário apontando para a rota de cadastro de admin -->
+            <form th:action="@{/admin/registrar-secreto}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Nome Completo:</label>
+                    <input type="text" name="nome" class="form-control" required placeholder="Seu nome">
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">E-mail:</label>
+                    <input type="email" name="email" class="form-control" required placeholder="admin@valinostech.com">
+                </div>
+                
+                <!-- CAMPO DE SENHA COM O OLHINHO -->
+                <div class="mb-3">
+                    <label class="form-label">Senha:</label>
+                    <div class="input-group">
+                        <input type="password" name="senha" id="senhaAdmin" class="form-control" required placeholder="Digite a senha">
+                        <button class="btn btn-outline-secondary" type="button" id="btnSenha" onclick="toggleSenha()">
+                            <span id="iconeOlho">👁️</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-dark w-100">Cadastrar Admin</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPT PARA FUNCIONAR A ALTERNÂNCIA DA SENHA -->
+    <script>
+        function toggleSenha() {
+            const inputSenha = document.getElementById('senhaAdmin');
+            const icone = document.getElementById('iconeOlho');
+            
+            if (inputSenha.type === 'password') {
+                inputSenha.type = 'text';
+                icone.textContent = '🔒'; // Ícone de cadeado quando a senha está visível
+            } else {
+                inputSenha.type = 'password';
+                icone.textContent = '👁️'; // Ícone de olho quando a senha está oculta
+            }
+        }
+    </script>
+</body>
+</html>

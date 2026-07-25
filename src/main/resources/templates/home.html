@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Valino's Tech Games | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #39ff14; --bg: #0d0d0d; --card: #1a1a1a; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; margin: 0; }
+        
+        /* Navbar Estilo Amazon/Gamer */
+        header { background: #000; padding: 15px 5%; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: bold; color: var(--primary); text-decoration: none; }
+        nav { display: flex; align-items: center; }
+        nav a, nav .user-info { color: white; text-decoration: none; margin-left: 20px; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .user-info { color: var(--primary); font-weight: bold; }
+        
+        .search-bar { flex: 1; margin: 0 30px; display: flex; }
+        .search-bar input { width: 100%; padding: 8px; border-radius: 4px 0 0 4px; border: none; outline: none; }
+        .search-bar button { padding: 8px 15px; background: var(--primary); border: none; border-radius: 0 4px 4px 0; cursor: pointer; color: black; }
+
+        /* Banner Principal */
+        .hero { height: 300px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; }
+        
+        /* Vitrine de Produtos */
+        .container { padding: 40px 5%; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .product-card { background: var(--card); padding: 15px; border-radius: 8px; transition: 0.3s; border: 1px solid #333; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .product-img { width: 100%; height: 180px; background: #333; border-radius: 4px; margin-bottom: 10px; background-position: center; background-size: cover; }
+        .price { color: var(--primary); font-size: 20px; font-weight: bold; }
+        
+        /* Botão Ajustado para Link */
+        .btn-buy { width: 100%; padding: 10px; background: var(--primary); border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; color: black; text-align: center; text-decoration: none; display: block; box-sizing: border-box; }
+        .btn-buy:hover { background: #2cdb10; color: black; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/" class="logo">VALINO'S TECH</a>
+        <div class="search-bar">
+            <input type="text" placeholder="Busque por consoles, jogos ou hardware...">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <nav>
+            <div th:if="${usuarioNome != null}" class="user-info">
+                <i class="fa-solid fa-circle-user"></i>
+                Olá, <span th:text="${usuarioNome}">Usuário</span>
+            </div>
+
+            <a th:if="${usuarioNome == null}" th:href="@{/login}">
+                <i class="fa-solid fa-user"></i> Login
+            </a>
+            
+            <a th:href="@{/carrinho}"><i class="fa-solid fa-cart-shopping"></i> Carrinho</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div>
+            <h1>O UPGRADE QUE SEU SETUP PRECISA</h1>
+            <p>Os melhores periféricos com o selo de qualidade Valino's.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <h2>Destaques da Semana</h2>
+        <div class="product-grid">
+            
+            <div class="product-card">
+                <div>
+                    <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=300&q=80');"></div>
+                    <h3>Monitor Gamer 144Hz</h3>
+                    <p class="price">R$ 1.299,00</p>
+                </div>
+                <a th:href="@{/carrinho/adicionar/1}" class="btn-buy">Adicionar ao Carrinho</a>
+            </div>
+
+            <div class="product-card">
+                <div>
+                    <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1544652478-6653e09f18a2?auto=format&fit=crop&w=300&q=80');"></div>
+                    <h3>Teclado Mecânico RGB</h3>
+                    <p class="price">R$ 349,90</p>
+                </div>
+                <a th:href="@{/carrinho/adicionar/2}" class="btn-buy">Adicionar ao Carrinho</a>
+            </div>
+
+            <div class="product-card">
+                <div>
+                    <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=300&q=80');"></div>
+                    <h3>Controle Next-Gen</h3>
+                    <p class="price">R$ 450,00</p>
+                </div>
+                <a th:href="@{/carrinho/adicionar/3}" class="btn-buy">Adicionar ao Carrinho</a>
+            </div>
+
+            </div>
+    </main>
+
+</body>
+</html>
