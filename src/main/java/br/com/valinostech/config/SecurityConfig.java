@@ -45,16 +45,15 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/esqueci-senha", "/redefinir-senha", "/cadastro", "/cadastrar").permitAll()
-                
-                // Agora o acesso ao admin está protegido novamente!
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/esqueci-senha", "/redefinir-senha", "/cadastro", "/cadastrar", "/login").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .successHandler(customAuthenticationSuccessHandler()) // Redirecionamento inteligente
+                .usernameParameter("username") // Força o Spring a ler o input name="username"
+                .passwordParameter("password") // Força o Spring a ler o input name="password"
+                .successHandler(customAuthenticationSuccessHandler())
                 .permitAll()
             )
             .logout(logout -> logout
