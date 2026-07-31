@@ -119,7 +119,7 @@
         <div class="logo">VALINO'S TECH @GAMES</div>
         <h1>FAZER LOGIN</h1>
         
-        <form th:action="@{/login}" method="post" id="loginForm">
+        <form th:action="@{/login}" method="post" id="loginForm" onsubmit="return validarCaptcha(event)">
             
             <div th:if="${param.error}" class="error-msg">E-mail ou senha inválidos!</div>
             <div th:if="${param.logout}" class="error-msg" style="color: #00ff88;">Você saiu com sucesso!</div>
@@ -172,7 +172,7 @@
         let correctSum = n1 + n2;
         document.getElementById('question').innerText = `Quanto é ${n1} + ${n2}?`;
 
-        document.getElementById('loginForm').onsubmit = function(e) {
+        function validarCaptcha(e) {
             const userAns = document.getElementById('captcha-ans').value;
             if (parseInt(userAns) !== correctSum) {
                 e.preventDefault();
@@ -182,8 +182,10 @@
                 correctSum = n1 + n2;
                 document.getElementById('question').innerText = `Quanto é ${n1} + ${n2}?`;
                 document.getElementById('captcha-ans').value = '';
+                return false;
             }
-        };
+            return true;
+        }
     </script>
 </body>
 </html>
