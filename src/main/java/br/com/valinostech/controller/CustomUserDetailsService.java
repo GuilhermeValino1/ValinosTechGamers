@@ -20,10 +20,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println(">>> TENTATIVA DE LOGIN PARA O E-MAIL: " + email);
+        
         Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
+            System.out.println(">>> ERRO: Usuário não encontrado no banco!");
             throw new UsernameNotFoundException("Usuário não encontrado: " + email);
         }
+        
+        System.out.println(">>> SUCESSO: Usuário encontrado! Senha hash no banco: " + usuario.getSenha());
         
         // Lógica blindada: Garante que o prefixo ROLE_ exista apenas uma vez
         String tipo = (usuario.getTipo() != null) ? usuario.getTipo().toUpperCase() : "USER";
