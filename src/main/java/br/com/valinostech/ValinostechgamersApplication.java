@@ -24,15 +24,14 @@ public class ValinostechgamersApplication {
                 admin.setEmail("guivalino@gmail.com");
                 admin.setNome("Guilherme");
                 admin.setTipo("ADMIN");
-                admin.setCep("01001-000");
+                admin.setCep("01001000");
                 admin.setCidade("Sao Paulo");
                 admin.setEstado("SP");
-                admin.setCpf("000.000.000-00");
+                admin.setCpf("12345678901");
                 admin.setEndereco("Rua Exemplo");
                 admin.setNumero("123");
-                admin.setTelefone("(11) 99999-9999");
+                admin.setTelefone("11999999999");
             }
-            // Força a atualização da senha com o hash BCrypt exato da aplicação
             admin.setSenha(passwordEncoder.encode("123456"));
             usuarioRepository.save(admin);
             System.out.println(">>> USUÁRIO ADMIN GARANTIDO NO BANCO COM SUCESSO! <<<");
