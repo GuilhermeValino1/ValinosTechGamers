@@ -17,9 +17,16 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // Salvar usuário com senha criptografada
+    // Salvar usuário com senha criptografada de forma segura (evita re-criptografar o hash)
     public Usuario salvarUsuario(Usuario usuario) {
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        if (usuario.getId() == null || (usuario.getSenha() != null && !usuario.getSenha().startsWith("$2a$"))) {
+            usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        }
+        
+        if (usuario.getTipo() == null || usuario.getTipo().isEmpty()) {
+            usuario.setTipo("CLIENTE");
+        }
+
         return usuarioRepository.save(usuario);
     }
 
