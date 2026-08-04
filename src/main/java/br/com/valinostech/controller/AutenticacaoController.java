@@ -38,24 +38,36 @@ public class AutenticacaoController {
     public String registrarUsuario(@ModelAttribute("usuarioForm") Usuario usuario, 
                                    RedirectAttributes redirectAttributes) {
         try {
-            // Proteção de Segurança: Verifica se o e-mail já está cadastrado
-if (usuarioRepository.findByEmail(usuario.getEmail()) != null) {
-    redirectAttributes.addFlashAttribute("erro", "Este e-mail já está cadastrado na loja!");
-    return "redirect:/cadastro";
-}
+            System.out.println(">>> TENTANDO CADASTRAR E-MAIL: " + usuario.getEmail());
 
-            // Criptografa a senha antes de salvar no banco de dados (Segurança Padrão Amazon)
+            // Proteção de Segurança: Verifica se o e-mail já está cadastrado
+            if (usuarioRepository.findByEmail(usuario.getEmail()) != null) {
+                redirectAttributes.addFlashAttribute("erro", "Este e-mail já está cadastrado na loja!");
+                return "redirect:/cadastro";
+            }
+
+            // Garante que o tipo do usuário nunca seja nulo
+            if (usuario.getTipo() == null || usuario.getTipo().isEmpty()) {
+                usuario.setTipo("CLIENTE");
+            }
+
+            // Criptografa a senha antes de salvar no banco de dados
             String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
             usuario.setSenha(senhaCriptografada);
 
-            // Salva o novo usuário no MySQL
+            // Salva o novo usuário no MySQL da Aiven
             usuarioRepository.save(usuario);
+            System.out.println(">>> SUCESSO: Usuário salvo no banco com ID: " + usuario.getId());
 
             redirectAttributes.addFlashAttribute("sucesso", "Cadastro realizado com sucesso! Faça seu login.");
             return "redirect:/login";
 
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("erro", "Erro ao processar o cadastro. Verifique os dados.");
+            // Imprime o erro exato no console do Railway/IDE para rastreamento
+            System.err.println(">>> ERRO CRÍTICO NO CADASTRO: " + e.getMessage());
+            e.printStackTrace();
+            
+            redirectAttributes.addFlashAttribute("erro", "Erro ao processar o cadastro: " + e.getMessage());
             return "redirect:/cadastro";
         }
     }
