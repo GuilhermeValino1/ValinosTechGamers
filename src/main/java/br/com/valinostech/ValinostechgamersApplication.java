@@ -18,28 +18,32 @@ public class ValinostechgamersApplication {
     @Bean
     public CommandLineRunner criarUsuariosIniciais(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         return args -> {
-            // 1. Cria o Administrador caso não exista
+            // 1. Cria o Administrador
             String emailAdmin = "guivalino@gmail.com";
             if (usuarioRepository.findByEmail(emailAdmin) == null) {
                 Usuario admin = new Usuario();
                 admin.setNome("Guilherme Rabeca Valino Rosa");
-                admin.setCpf("431.076.238-73");
+                admin.setCpf("43107623873"); // 11 dígitos corretos sem pontos/traço se exigido
                 admin.setEmail(emailAdmin);
                 admin.setSenha(passwordEncoder.encode("Guivalino2019@"));
+                admin.setTelefone("11999999999");
+                admin.setCep("05128190");
                 admin.setTipo("ADMIN");
                 
                 usuarioRepository.save(admin);
                 System.out.println(">>> USUÁRIO ADMIN CRIADO COM SUCESSO!");
             }
 
-            // 2. Cria o Cliente de Teste caso não exista
+            // 2. Cria o Cliente de Teste
             String emailCliente = "cliente@valinos.com";
             if (usuarioRepository.findByEmail(emailCliente) == null) {
                 Usuario cliente = new Usuario();
                 cliente.setNome("Cliente Teste");
-                cliente.setCpf("123.456.789-00");
+                cliente.setCpf("12345678900");
                 cliente.setEmail(emailCliente);
                 cliente.setSenha(passwordEncoder.encode("123456"));
+                cliente.setTelefone("11888888888");
+                cliente.setCep("05128190");
                 cliente.setTipo("CLIENTE");
                 
                 usuarioRepository.save(cliente);
