@@ -35,7 +35,8 @@
 <body>
     <div class="container">
         <h2 style="margin-top:0;">Criar conta</h2>
-        <form th:action="@{/cadastrar}" method="post">
+        <!-- CORRIGIDO AQUI: de /cadastrar para /cadastro -->
+        <form th:action="@{/cadastro}" method="post">
             <div class="section-title">Dados Pessoais</div>
             <div class="grid">
                 <div class="full">
@@ -95,7 +96,6 @@
     </div>
 
     <script>
-        // 1. Função para mostrar/esconder senha
         function toggle(id, icon) {
             const input = document.getElementById(id);
             if (input.type === 'password') {
@@ -107,19 +107,13 @@
             }
         }
 
-        // 2. Lógica para Busca Automática de CEP
         const cepInput = document.getElementById('cep');
         const ruaInput = document.getElementById('rua');
 
         cepInput.addEventListener('blur', () => {
-            // Remove qualquer caractere que não seja número
             let cep = cepInput.value.replace(/\D/g, '');
-
-            // Verifica se o CEP tem 8 dígitos
             if (cep.length === 8) {
-                // Efeito visual de carregamento simples
                 ruaInput.value = "Buscando...";
-
                 fetch(`https://viacep.com.br/ws/${cep}/json/`)
                     .then(response => response.json())
                     .then(dados => {
