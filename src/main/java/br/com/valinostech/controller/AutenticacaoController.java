@@ -28,7 +28,7 @@ public class AutenticacaoController {
         return "login"; // Renderiza login.html em templates
     }
 
-    // Rota POST para processar o login do usuário
+    // Rota POST para processar o login do usuário com diagnóstico completo nos logs
     @PostMapping("/login")
     public String autenticarUsuario(@ModelAttribute("usuarioForm") Usuario usuarioForm,
                                     HttpSession session,
@@ -36,19 +36,35 @@ public class AutenticacaoController {
         try {
             System.out.println(">>> TENTANDO LOGIN COM E-MAIL: " + usuarioForm.getEmail());
 
-            // 1. Busca o usuário no banco pelo e-mail informado
-            Usuario usuarioBanco = usuarioRepository.findByEmail(usuarioForm.getEmail());
+            if (usuarioForm.getEmail() == null || usuarioForm.getEmail().trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("erro", "Por favor, digite o e-mail.");
+                return "redirect:/login";
+            }
 
-            // 2. Valida se o usuário existe e se a senha confere com a criptografada no banco
-            if (usuarioBanco != null && passwordEncoder.matches(usuarioForm.getSenha(), usuarioBanco.getSenha())) {
+            // 1. Busca o usuário no banco pelo e-mail informado (removendo espaços extras)
+            Usuario usuarioBanco = usuarioRepository.findByEmail(usuarioForm.getEmail().trim());
+
+            if (usuarioBanco == null) {
+                System.out.println(">>> ALERTA: E-mail não encontrado no banco de dados!");
+                redirectAttributes.addFlashAttribute("erro", "E-mail ou senha inválidos!");
+                return "redirect:/login";
+            }
+
+            System.out.println(">>> USUÁRIO ENCONTRADO NO BANCO: " + usuarioBanco.getNome());
+
+            // 2. Valida se a senha digitada confere com a criptografada no banco
+            boolean senhaOk = passwordEncoder.matches(usuarioForm.getSenha(), usuarioBanco.getSenha());
+            System.out.println(">>> A SENHA CONFERE? " + senhaOk);
+
+            if (senhaOk) {
                 // Salva o usuário na sessão para mantê-lo logado
                 session.setAttribute("usuarioLogado", usuarioBanco);
-                System.out.println(">>> LOGIN SUCESSO: " + usuarioBanco.getNome());
+                System.out.println(">>> LOGIN REALIZADO COM SUCESSO!");
                 
                 // Redireciona para a página principal da loja
                 return "redirect:/";
             } else {
-                // Se errar o e-mail ou a senha
+                System.out.println(">>> ALERTA: Senha incorreta para o e-mail informado.");
                 redirectAttributes.addFlashAttribute("erro", "E-mail ou senha inválidos!");
                 return "redirect:/login";
             }
@@ -76,7 +92,7 @@ public class AutenticacaoController {
             System.out.println(">>> TENTANDO CADASTRAR E-MAIL: " + usuario.getEmail());
 
             // Proteção de Segurança: Verifica se o e-mail já está cadastrado
-            if (usuarioRepository.findByEmail(usuario.getEmail()) != null) {
+            if (usuarioRepository.findByEmail(usuario.getEmail().trim()) != null) {
                 redirectAttributes.addFlashAttribute("erro", "Este e-mail já está cadastrado na loja!");
                 return "redirect:/cadastro";
             }
